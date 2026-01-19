@@ -1,0 +1,380 @@
+/* O'quv reja ko'rinishi uchun qo'shimcha stillar */
+.excel-view-container {
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    margin-top: 20px;
+}
+
+.excel-header {
+    background: linear-gradient(135deg, #2ecc71, #27ae60);
+    color: white;
+    padding: 20px;
+    text-align: center;
+    position: relative;
+}
+
+.excel-header h2 {
+    margin: 0;
+    font-size: 1.5rem;
+    font-weight: 600;
+}
+
+.excel-header .academic-year {
+    font-size: 1rem;
+    opacity: 0.9;
+    margin-top: 5px;
+}
+
+.excel-actions {
+    position: absolute;
+    right: 20px;
+    top: 50%;
+    transform: translateY(-50%);
+    display: flex;
+    gap: 10px;
+}
+
+.excel-table-container {
+    overflow-x: auto;
+    max-height: 70vh;
+    position: relative;
+}
+
+.excel-table {
+    width: 100%;
+    border-collapse: collapse;
+    min-width: 1800px;
+    font-size: 0.9rem;
+}
+
+.excel-table th,
+.excel-table td {
+    border: 1px solid #e0e0e0;
+    padding: 8px 12px;
+    text-align: center;
+    vertical-align: middle;
+    position: relative;
+}
+
+.excel-table th {
+    background-color: #f8f9fa;
+    font-weight: 600;
+    color: #2c3e50;
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    min-width: 70px;
+}
+
+.excel-table th.semester-header {
+    background-color: #3498db;
+    color: white;
+    font-size: 1.1rem;
+    height: 50px;
+}
+
+.excel-table th.fixed-column {
+    position: sticky;
+    left: 0;
+    background-color: #f8f9fa;
+    z-index: 20;
+    min-width: 150px;
+    text-align: left;
+}
+
+.excel-table td.fixed-column {
+    position: sticky;
+    left: 0;
+    background-color: white;
+    z-index: 15;
+    text-align: left;
+    font-weight: 500;
+}
+
+.excel-table th:nth-child(2),
+.excel-table td:nth-child(2) {
+    min-width: 200px;
+}
+
+.excel-table th.section-header {
+    background-color: #e8f4fc;
+    color: #2c3e50;
+    font-size: 0.95rem;
+}
+
+.subject-row td {
+    background-color: #f8f9fa;
+    transition: background-color 0.2s;
+}
+
+.subject-row:hover td {
+    background-color: #e3f2fd;
+}
+
+.subject-code {
+    font-family: 'Courier New', monospace;
+    font-weight: 600;
+    color: #2c3e50;
+}
+
+.subject-name {
+    color: #34495e;
+    line-height: 1.4;
+}
+
+.exam-type {
+    display: inline-block;
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-size: 0.85rem;
+    font-weight: 600;
+}
+
+.exam-s { /* Sinov */
+    background-color: #e8f6f3;
+    color: #27ae60;
+    border: 1px solid #a3e9c4;
+}
+
+.exam-i { /* Imtihon */
+    background-color: #ffebee;
+    color: #e74c3c;
+    border: 1px solid #ffcdd2;
+}
+
+.credit-cell {
+    font-weight: 600;
+    color: #2c3e50;
+}
+
+.total-cell {
+    background-color: #e8f4fc !important;
+    font-weight: 600;
+}
+
+.semester-total {
+    background-color: #d5f5e3 !important;
+    font-weight: 700;
+    color: #27ae60;
+}
+
+.year-total {
+    background-color: #2ecc71 !important;
+    color: white;
+    font-weight: 700;
+}
+
+.controls-panel {
+    background: white;
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
+}
+
+.filters-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 15px;
+    margin-bottom: 20px;
+}
+
+.stats-cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 15px;
+    margin-top: 20px;
+}
+
+.stat-card-excel {
+    background: white;
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    border-left: 4px solid #2ecc71;
+}
+
+.stat-card-excel h4 {
+    margin: 0 0 10px 0;
+    font-size: 1rem;
+    color: #7f8c8d;
+}
+
+.stat-card-excel .value {
+    font-size: 2rem;
+    font-weight: 700;
+    color: #2c3e50;
+    margin-bottom: 5px;
+}
+
+.stat-card-excel .label {
+    font-size: 0.9rem;
+    color: #95a5a6;
+}
+
+.highlight-row {
+    animation: highlight 1.5s ease;
+}
+
+@keyframes highlight {
+    0% { background-color: #fffde7; }
+    100% { background-color: inherit; }
+}
+
+.pagination-controls {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    padding: 20px;
+    background: white;
+    border-top: 1px solid #e0e0e0;
+}
+
+.page-info {
+    font-size: 0.9rem;
+    color: #7f8c8d;
+}
+
+/* Scrollbar styling */
+.excel-table-container::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+}
+
+.excel-table-container::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+
+.excel-table-container::-webkit-scrollbar-thumb {
+    background: #c1c1c1;
+    border-radius: 5px;
+}
+
+.excel-table-container::-webkit-scrollbar-thumb:hover {
+    background: #a1a1a1;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .excel-actions {
+        position: static;
+        transform: none;
+        justify-content: center;
+        margin-top: 15px;
+    }
+    
+    .controls-panel {
+        padding: 15px;
+    }
+    
+    .filters-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* Loading overlay */
+.loading-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(255, 255, 255, 0.9);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+    border-radius: 12px;
+}
+
+.loading-spinner {
+    width: 50px;
+    height: 50px;
+    border: 5px solid #f3f3f3;
+    border-top: 5px solid #2ecc71;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+/* Tooltip */
+.cell-tooltip {
+    position: absolute;
+    background: #2c3e50;
+    color: white;
+    padding: 8px 12px;
+    border-radius: 6px;
+    font-size: 0.85rem;
+    z-index: 1000;
+    white-space: nowrap;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.2s;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.cell-tooltip::after {
+    content: '';
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    margin-left: -5px;
+    border-width: 5px;
+    border-style: solid;
+    border-color: #2c3e50 transparent transparent transparent;
+}
+
+/* Semester switcher */
+.semester-switcher {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 20px;
+    flex-wrap: wrap;
+}
+
+.semester-btn {
+    padding: 8px 20px;
+    border: 2px solid #e0e0e0;
+    background: white;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: 500;
+    transition: all 0.2s;
+}
+
+.semester-btn:hover {
+    border-color: #2ecc71;
+    color: #2ecc71;
+}
+
+.semester-btn.active {
+    background: #2ecc71;
+    color: white;
+    border-color: #2ecc71;
+}
+
+/* Print styles */
+@media print {
+    .controls-panel,
+    .excel-actions,
+    .pagination-controls {
+        display: none !important;
+    }
+    
+    .excel-table-container {
+        max-height: none !important;
+        overflow: visible !important;
+    }
+    
+    .excel-table {
+        min-width: auto !important;
+        width: 100% !important;
+    }
+}
