@@ -18,21 +18,23 @@
     $semestr_id   = (int) $_POST['semestr_id'];
     $fan_codes    = $_POST['fan_code'];
     $fan_nomlar   = $_POST['fan_nomi'];
+    $kafedra_idlar = $_POST['kafedra_id'];
     $dars_turlari = $_POST['dars_turi'];
     $dars_soatlari= $_POST['dars_soati'];
     $izoh         = trim($_POST['izoh'] ?? '');
-
+    
     $insertCount = 0;
-
     foreach ($fan_codes as $fanIndex => $fanCode) {
 
         $fanCode = trim($fanCode);
         $fanName = trim($fan_nomlar[$fanIndex] ?? '');
-
-        if ($fanCode === '' || $fanName === '') {
-            continue;
-        }
-
+        $kafedra_id = (int) ($kafedra_idlar[$fanIndex] ?? 0);
+        $insert_fanid = $db->insert('fanlar', [
+            'fan_code'   => $fanCode,
+            'fan_name'   => $fanName,
+            'kafedra_id' => $kafedra_id,
+            'semestr_id' => $semestr_id
+        ]);
         if (!isset($dars_turlari[$fanIndex], $dars_soatlari[$fanIndex])) {
             continue;
         }
@@ -41,18 +43,15 @@
             $darsTurId = (int) $darsTurId;
             $darsSoat  = (int) ($dars_soatlari[$fanIndex][$i] ?? 0);
 
-            if ($darsTurId <= 0 || $darsSoat <= 0) {
+            if ($darsTurId < 0 || $darsSoat < 0) {
                 continue;
             }
             $insert = $db->insert('oquv_rejalar', [
-                'semestr_id'  => $semestr_id,
-                'fan_code'    => $fanCode,
-                'fan_name'    => $fanName,
+                'fan_id'     => $insert_fanid,
                 'dars_tur_id' => $darsTurId,
                 'dars_soat'   => $darsSoat,
                 'izoh'        => $izoh
             ]);
-
             if ($insert) {
                 $insertCount++;
             }

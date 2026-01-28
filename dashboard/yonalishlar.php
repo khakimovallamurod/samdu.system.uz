@@ -113,6 +113,24 @@
                                    placeholder="<?= date('Y') ?>" required>
                         </div>
                         <div class="form-group">
+                            <label for="yonalishPatok">
+                                <i class="fas fa-clock"></i> Patok soni
+                            </label>
+                            <input type="number" id="yonalishPatok" min="1" value='1' required>
+                        </div>
+                        <div class="form-group">
+                            <label for="yonalishKattaguruh">
+                                <i class="fas fa-clock"></i> Katta guruh soni
+                            </label>
+                            <input type="number" id="yonalishKattaguruh" min="1" placeholder="3" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="yonalishKichikguruh">
+                                <i class="fas fa-clock"></i> Kichik guruh soni
+                            </label>
+                            <input type="number" id="yonalishKichikguruh" min="1" placeholder="2" required>
+                        </div>
+                        <div class="form-group">
                             <label for="akademikDarajaSelect">
                                 <i class="fas fa-graduation-cap"></i> Akademik daraja
                             </label>
@@ -258,6 +276,9 @@
             const kvalifikatsiya     = document.getElementById('kvalifikatsiya').value.trim();
             const fakultetId         = document.getElementById('fakultetSelect').value;
             const kirishYili         = document.getElementById('kirishYili').value;
+            const yonalishPatok       = document.getElementById('yonalishPatok').value;
+            const yonalishKattaguruh  = document.getElementById('yonalishKattaguruh').value;
+            const yonalishKichikguruh = document.getElementById('yonalishKichikguruh').value;
 
             const formData = new FormData();
             formData.append('nomi', yonalishNomi);
@@ -268,6 +289,9 @@
             formData.append('kvalifikatsiya', kvalifikatsiya);
             formData.append('fakultet_id', fakultetId);
             formData.append('kirish_yili', kirishYili);
+            formData.append('patok_soni', yonalishPatok);
+            formData.append('kattaguruh_soni', yonalishKattaguruh);
+            formData.append('kichikguruh_soni', yonalishKichikguruh);
 
             fetch('insert/add_yonalish.php', {
                 method: 'POST',

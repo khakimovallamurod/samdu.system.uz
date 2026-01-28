@@ -19,24 +19,6 @@
                 </a>
             </li>
             <li class="nav-item">
-                <a href="yonalishlar.php">
-                    <i class="fas fa-compass"></i>
-                    <span>Yo'nalishlar</span>
-                </a>
-            </li>
-            <li class="nav-item">
-                <a href="dasturlar.php">
-                    <i class="fas fa-book"></i>
-                    <span>Dasturlar</span>
-                </a>
-            </li>
-            <li class="nav-item">
-                <a href="haftalik-reja.php">
-                    <i class="fas fa-calendar-week"></i>
-                    <span>Haftalik Reja</span>
-                </a>
-            </li>
-            <li class="nav-item">
                 <details class="nav-details">
                     <summary class="nav-link">
                         <i class="fas fa-cog"></i>
@@ -92,6 +74,31 @@
                                 <span>Semestrlar</span>
                             </a>
                         </li>
+                        <li>
+                            <a href="guruhlar.php">
+                                <i class="fas fa-users"></i>
+                                <span>Guruhlar</span>
+                            </a>
+                        </li>
+
+                        <li>
+                            <a href="oquv_haftaligi_turlar.php">
+                                <i class="fas fa-calendar-alt"></i>
+                                <span>O‘quv haftalik turlar</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="qoshimcha_dars_turlar.php">
+                                <i class="fas fa-book-open"></i>
+                                <span>Qo‘shimcha dars turlar</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="oqtuvchilar.php">
+                                <i class="fas fa-user-tie"></i>
+                                <span>O‘qituvchilar</span>
+                            </a>
+                        </li>
                     </ul>
                 </details>
             </li>
@@ -106,13 +113,66 @@
                         <li>
                             <a href="oquv-reja-yaratish.php">
                                 <i class="fas fa-plus-circle"></i>
-                                <span>O'quv reja yaratish</span>
+                                <span>O‘quv reja yaratish</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="qoshimcha-oquv-reja-yaratish.php">
+                                <i class="fas fa-calendar-plus"></i>
+                                <span>Qo‘shimcha reja yaratish</span>
                             </a>
                         </li>
                         <li>
                             <a href="oquv-rejalar.php">
                                 <i class="fas fa-list"></i>
-                                <span>Barcha o'quv rejalar</span>
+                                <span>Barcha o‘quv rejalar</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="oquv-haftalik-yaratish.php">
+                                <i class="fas fa-plus"></i>
+                                <span>O‘quv haftaligini yaratish</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="oquv-haftaliklar.php">
+                                <i class="fas fa-calendar-alt"></i>
+                                <span>Barcha o‘quv haftaliklar</span>
+                            </a>
+                        </li>
+
+                    </ul>
+                </details>
+            </li>
+            <li class="nav-item">
+                <details class="nav-details">
+                    <summary class="nav-link">
+                        <i class="fas fa-briefcase"></i>
+                        <span>O‘quv yuklama</span>
+                        <i class="fas fa-chevron-down arrow"></i>
+                    </summary>
+                    <ul class="submenu">
+                        <li>
+                            <a href="oquv-yuklamalar.php">
+                                <i class="fas fa-tasks"></i>
+                                <span>Barcha o'quv yuklamalar</span>
+                            </a>
+                        </li>
+                    </ul>
+                </details>
+            </li>
+            <li class="nav-item">
+                <details class="nav-details">
+                    <summary class="nav-link">
+                        <i class="fas fa-chalkboard"></i>
+                        <span>O‘quv taqsimot</span>
+                        <i class="fas fa-chevron-down arrow"></i>
+                    </summary>
+                    <ul class="submenu">
+                        <li>
+                            <a href="oquv-taqsimotlar.php">
+                                <i class="fas fa-project-diagram"></i>
+                                <span>Barcha o'quv taqsimotlar</span>
                             </a>
                         </li>
                     </ul>

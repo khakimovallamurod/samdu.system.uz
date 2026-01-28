@@ -5,21 +5,30 @@ $db = new Database();
 
 $oquv_rejalar = $db->get_oquv_rejalar();
 
-function process_data_for_template(array $data): array
-{
+function process_data_for_template(array $data): array{
     $semesters = [];
 
     foreach ($data as $row) {
 
         $semestrNum = (int)$row['semestr'];
         $fanCode    = $row['fan_code'];
-        $soat       = (int)$row['jami_soat'];
-        $turName    = mb_strtolower($row['dars_tur_name'], 'UTF-8');
+
+        /* 🔥 jami soatni ustunlardan yig‘amiz */
+        $lecture   = (int)$row['lecture'];
+        $practical = (int)$row['practical'];
+        $lab       = (int)$row['lab'];
+        $seminar   = (int)$row['seminar'];
+        $mustaqil  = (int)$row['mustaqilTalim'];
+        $kursIshi  = (int)$row['kursIshi'];
+        $malaka    = (int)$row['malakaAmaliyot'];
+
+        $audTotal = $lecture + $practical + $lab + $seminar;
+        $totalSoat = $audTotal + $mustaqil + $kursIshi + $malaka;
 
         /* ===== SEMESTR INIT ===== */
         if (!isset($semesters[$semestrNum])) {
             $semesters[$semestrNum] = [
-                'id' => $row['semestr_id'],
+                'id' => $row['semestr_id'] ?? null,
                 'name' => $semestrNum . '-SEMESTR',
                 'subjects' => [],
                 'totals' => [
@@ -39,83 +48,44 @@ function process_data_for_template(array $data): array
             ];
         }
 
-        /* ===== FAN INIT (ASSOCIATIVE) ===== */
-        if (!isset($semesters[$semestrNum]['subjects'][$fanCode])) {
-            $semesters[$semestrNum]['subjects'][$fanCode] = [
-                'code' => $fanCode,
-                'name' => $row['fan_name'],
-                'examType' => 'I',
-                'credit' => 0,
-                'totalHours' => 0,
-                'auditoriya' => [
-                    'total' => 0,
-                    'lecture' => 0,
-                    'practical' => 0,
-                    'lab' => 0,
-                    'seminar' => 0
-                ],
-                'malakaAmaliyot' => 0,
-                'kursIshi' => 0,
-                'mustaqilTalim' => 0,
-                'department' => $row['kafedra_name']
-            ];
-        }
+        /* ===== FAN INIT ===== */
+        $semesters[$semestrNum]['subjects'][$fanCode] = [
+            'code' => $fanCode,
+            'name' => $row['fan_name'],
+            'examType' => 'I',
+            'credit' => round($totalSoat / 30),
+            'totalHours' => $totalSoat,
+            'auditoriya' => [
+                'total' => $audTotal,
+                'lecture' => $lecture,
+                'practical' => $practical,
+                'lab' => $lab,
+                'seminar' => $seminar
+            ],
+            'malakaAmaliyot' => $malaka,
+            'kursIshi' => $kursIshi,
+            'mustaqilTalim' => $mustaqil,
+            'department' => $row['kafedra_name']
+        ];
 
-        $subject =& $semesters[$semestrNum]['subjects'][$fanCode];
+        /* ===== SEMESTR TOTALS ===== */
+        $semesters[$semestrNum]['totals']['totalHours'] += $totalSoat;
+        $semesters[$semestrNum]['totals']['credit'] += round($totalSoat / 30);
 
-        /* ===== TOTAL HOURS ===== */
-        $subject['totalHours'] += $soat;
-        $semesters[$semestrNum]['totals']['totalHours'] += $soat;
+        $semesters[$semestrNum]['totals']['auditoriya']['total'] += $audTotal;
+        $semesters[$semestrNum]['totals']['auditoriya']['lecture'] += $lecture;
+        $semesters[$semestrNum]['totals']['auditoriya']['practical'] += $practical;
+        $semesters[$semestrNum]['totals']['auditoriya']['lab'] += $lab;
+        $semesters[$semestrNum]['totals']['auditoriya']['seminar'] += $seminar;
 
-        /* ===== DARS TURI TAQSIMOT ===== */
-        if (str_contains($turName, 'ma')) {
-            $subject['auditoriya']['lecture'] += $soat;
-            $subject['auditoriya']['total']   += $soat;
-            $semesters[$semestrNum]['totals']['auditoriya']['lecture'] += $soat;
-            $semesters[$semestrNum]['totals']['auditoriya']['total']   += $soat;
-
-        } elseif (str_contains($turName, 'amaliy')) {
-            $subject['auditoriya']['practical'] += $soat;
-            $subject['auditoriya']['total']     += $soat;
-            $semesters[$semestrNum]['totals']['auditoriya']['practical'] += $soat;
-            $semesters[$semestrNum]['totals']['auditoriya']['total']     += $soat;
-
-        } elseif (str_contains($turName, 'lab')) {
-            $subject['auditoriya']['lab'] += $soat;
-            $subject['auditoriya']['total'] += $soat;
-            $semesters[$semestrNum]['totals']['auditoriya']['lab'] += $soat;
-            $semesters[$semestrNum]['totals']['auditoriya']['total'] += $soat;
-
-        } elseif (str_contains($turName, 'seminar')) {
-            $subject['auditoriya']['seminar'] += $soat;
-            $subject['auditoriya']['total'] += $soat;
-            $semesters[$semestrNum]['totals']['auditoriya']['seminar'] += $soat;
-            $semesters[$semestrNum]['totals']['auditoriya']['total'] += $soat;
-
-        } elseif (str_contains($turName, 'mustaqil')) {
-            $subject['mustaqilTalim'] += $soat;
-            $semesters[$semestrNum]['totals']['mustaqilTalim'] += $soat;
-
-        } elseif (str_contains($turName, 'malaka')) {
-            $subject['malakaAmaliyot'] += $soat;
-            $semesters[$semestrNum]['totals']['malakaAmaliyot'] += $soat;
-
-        } elseif (str_contains($turName, 'kurs')) {
-            $subject['kursIshi'] += $soat;
-            $semesters[$semestrNum]['totals']['kursIshi'] += $soat;
-        }
+        $semesters[$semestrNum]['totals']['mustaqilTalim'] += $mustaqil;
+        $semesters[$semestrNum]['totals']['kursIshi'] += $kursIshi;
+        $semesters[$semestrNum]['totals']['malakaAmaliyot'] += $malaka;
     }
 
-    /* ===== SORT SEMESTERS ===== */
     ksort($semesters);
 
-    /* ===== CREDIT + SUBJECT SORT ===== */
     foreach ($semesters as &$semester) {
-        foreach ($semester['subjects'] as &$subject) {
-            $subject['credit'] = round($subject['totalHours'] / 30);
-            $semester['totals']['credit'] += $subject['credit'];
-        }
-
         ksort($semester['subjects']);
         $semester['subjects'] = array_values($semester['subjects']);
     }
@@ -143,7 +113,7 @@ function process_data_for_template(array $data): array
     }
 
     return [
-        'academicYear' => '2024-2025',
+        'academicYear' => '2025-2026',
         'semesters' => array_values($semesters),
         'yearlyTotal' => $yearlyTotal
     ];
