@@ -114,7 +114,7 @@
 }
 
 .subject-code {
-    font-family: 'Courier New', monospace;
+    font-family: 'Times New Roman', serif !important;
     font-weight: 600;
     color: #2c3e50;
 }
